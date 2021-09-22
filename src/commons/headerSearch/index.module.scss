@@ -1,0 +1,41 @@
+.search-header{
+   color: red;
+  //  position: absolute;
+   width: 100%;
+   height: 34px;
+   top: 30px;
+   display: flex;
+   padding: 0 10px;
+   align-items: center;
+   :global{     
+    .search-header-left{
+        flex: 6;
+        background-color: #fff;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        .search-header-left-city{
+          margin-right: 5px;
+        }
+        .icon-arrow{
+          margin-right: 5px;
+        }
+   
+        .icon-seach{
+         margin: 5px;
+        }
+      }
+     
+      .search-header-right{
+        flex: 1;
+        margin-left: 10px;
+        text-align: center;
+        .icon-map{
+         font-size: 30px;
+         color: #fff;
+        }
+      }
+    
+   }
+}

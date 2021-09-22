@@ -1,17 +1,51 @@
 import React from 'react'
-import { Switch, Route, NavLink, Redirect } from 'react-router-dom'
 import Index from './Index/index'
 import Found from './Found'
 import Info from './Info'
 import MyInfo from './MyInfo'
-import { TabBar } from 'antd-mobile'
+
 import './index.scss'
+import { Switch, Route, Redirect } from 'react-router-dom'
+import { TabBar } from 'antd-mobile'
+
+const tabs = [
+  {
+    title: '首页',
+    icon: 'icon-ind',
+    path: '/home/index'
+  },
+  {
+    title: '找房',
+    icon: 'icon-findHouse',
+    path: '/home/found'
+  },
+  {
+    title: '资讯',
+    icon: 'icon-infom',
+    path: '/home/info'
+  },
+  {
+    title: '我的',
+    icon: 'icon-my',
+    path: '/home/myInfo'
+  }
+]
 
 class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedTab: 'blueTab'
+      selectedTab: props.location.pathname
+    }
+  }
+
+  componentDidMount() {}
+
+  componentDidUpdate(oldVal) {
+    if (oldVal.location.pathname !== this.props.location.pathname) {
+      this.setState({
+        selectedTab: this.props.location.pathname
+      })
     }
   }
 
@@ -26,127 +60,35 @@ class Home extends React.Component {
           <Route path="/home/myInfo" component={MyInfo}></Route>
         </Switch>
 
+        {/* 底部tabBar */}
         <TabBar
-          unselectedTintColor="#949494"
-          tintColor="#33A3F4"
+          unselectedTintColor="#ccc"
+          tintColor="#f56c6c"
           barTintColor="white"
         >
-          <TabBar.Item
-            title="首页"
-            key="首页"
-            icon={
-              <div
-                style={{
-                  width: '22px',
-                  height: '22px',
-                  background:
-                    'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat'
-                }}
-              />
-            }
-            selectedIcon={
-              <div
-                style={{
-                  width: '22px',
-                  height: '22px',
-                  background:
-                    'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat'
-                }}
-              />
-            }
-            selected={this.state.selectedTab === 'blueTab'}
-            onPress={() => {
-              this.setState({
-                selectedTab: 'blueTab'
-              })
-              this.props.history.push('/home/index')
-            }}
-          ></TabBar.Item>
-
-          <TabBar.Item
-            icon={
-              <div
-                style={{
-                  width: '22px',
-                  height: '22px',
-                  background:
-                    'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat'
-                }}
-              />
-            }
-            selectedIcon={
-              <div
-                style={{
-                  width: '22px',
-                  height: '22px',
-                  background:
-                    'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat'
-                }}
-              />
-            }
-            title="找房"
-            key="找房"
-            selected={this.state.selectedTab === 'redTab'}
-            onPress={() => {
-              this.setState({
-                selectedTab: 'redTab'
-              })
-              this.props.history.push('/home/found')
-            }}
-          ></TabBar.Item>
-
-          <TabBar.Item
-            icon={
-              <div
-                style={{
-                  width: '22px',
-                  height: '22px',
-                  background:
-                    'url(https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg) center center /  21px 21px no-repeat'
-                }}
-              />
-            }
-            selectedIcon={
-              <div
-                style={{
-                  width: '22px',
-                  height: '22px',
-                  background:
-                    'url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center /  21px 21px no-repeat'
-                }}
-              />
-            }
-            title="资讯"
-            key="资讯"
-            selected={this.state.selectedTab === 'greenTab'}
-            onPress={() => {
-              this.setState({
-                selectedTab: 'greenTab'
-              })
-              this.props.history.push('/home/info')
-            }}
-          ></TabBar.Item>
-
-          <TabBar.Item
-            icon={{
-              uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg'
-            }}
-            selectedIcon={{
-              uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg'
-            }}
-            title="我的"
-            key="我的"
-            selected={this.state.selectedTab === 'yellowTab'}
-            onPress={() => {
-              this.setState({
-                selectedTab: 'yellowTab'
-              })
-              this.props.history.push('/home/myInfo')
-            }}
-          ></TabBar.Item>
+          {this.renderTabBars()}
         </TabBar>
       </div>
     )
+  }
+
+  // 渲染底部tabbars
+  renderTabBars() {
+    return tabs.map((item) => (
+      <TabBar.Item
+        title={item.title}
+        key={item.title}
+        icon={<i className={`iconfont ${item.icon}`} />}
+        selectedIcon={<i className={`iconfont ${item.icon}`} />}
+        selected={this.state.selectedTab === item.path}
+        onPress={() => {
+          this.setState({
+            selectedTab: item.path
+          })
+          this.props.history.push(item.path)
+        }}
+      ></TabBar.Item>
+    ))
   }
 }
 

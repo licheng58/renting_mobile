@@ -1,0 +1,26 @@
+
+$themeColor:#fff;
+
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+  touch-action: pan-y;
+}
+
+html,
+body,
+#root,
+.app,
+.map
+{
+  height: 100%;
+}
+
+
+body{
+  font-family: '微软雅黑','宋体';
+  color: #333;
+  background-color: $themeColor;
+}

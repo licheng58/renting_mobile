@@ -1,0 +1,11 @@
+.found{
+  height: 100%;
+  // padding-top: 34px;
+  :global{     
+    .found2{
+      top: 0 ;
+      background-color: #ccc;
+      padding-right: 0;
+    }
+  }
+}
